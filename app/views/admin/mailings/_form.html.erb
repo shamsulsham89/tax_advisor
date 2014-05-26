@@ -1,0 +1,32 @@
+<head>
+<%= javascript_include_tag "nested_form" %>
+</head>
+
+
+  <%= semantic_nested_form_for [:admin, @mailing] do |f| %>
+<%  f.object.errors.full_messages.each do |y| %>
+     <%= y %> <br />
+ <% end %>
+  <p>
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
+  </p>
+  <p>
+  <%= f.label :subject %><br />
+  <%= f.text_field :subject %>
+  </p>
+  <p>
+  <%= f.label :body %><br />
+  <%= f.text_area :body %>
+  </p>
+  <%= f.fields_for :attachments do |attachment_form|  %>
+    
+    <p>
+    <%= attachment_form.label :avatar %><br />
+    <%= attachment_form.file_field :avatar %>
+    </p>
+    <%= attachment_form.link_to_remove "Remove this attachment" %>
+  <% end %>
+  <%= f.link_to_add "Add attachment", :attachments %>
+  <p><%= f.submit %></p>
+ <% end %>
